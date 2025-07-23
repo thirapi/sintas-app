@@ -1,75 +1,59 @@
-# Nuxt Minimal Starter
+# SINTAS – Sistem Integrasi Data Santri Al-Matlab
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+**SINTAS (Sistem Integrasi Data Santri Al-Matlab)** adalah aplikasi dashboard web yang digunakan untuk mengelola dan menyajikan data santri secara terintegrasi di Pondok Pesantren **Matlabus Salik (Al-Matlab)**.
 
-## Setup
+---
+##  Installation
 
-Make sure to install dependencies:
+Berikut adalah langkah-langkah untuk menginstal dan menjalankan proyek ini di lingkungan lokal:
 
-```bash
-# npm
-npm install
+---
 
-# pnpm
-pnpm install
+1. **Pastikan Node.js telah terinstal**  
+   Proyek ini membutuhkan **Node.js versi minimal `v18.0.0` atau lebih tinggi** (disarankan menggunakan versi LTS seperti `v18.20.0` atau `v20.x`).
 
-# yarn
-yarn install
+    ```bash
+    node --version
+    ```
 
-# bun
-bun install
-```
 
-## Development Server
+2. **Clone repository dan masuk ke direktori proyek**
 
-Start the development server on `http://localhost:3000`:
+    ```bash
+    # Clone repository
+    git clone https://github.com/thirapi/sintas-app.git
 
-```bash
-# npm
-npm run dev
+    # Masuk ke direktori proyek
+    cd sintas-app
+    ```
 
-# pnpm
-pnpm dev
+3. **Install dependensi proyek**
 
-# yarn
-yarn dev
+    ```bash
+    npm install
+    ```
 
-# bun
-bun run dev
-```
+4. **Pastikan database MySQL telah aktif dan dapat diakses.**
 
-## Production
+5. **Buat file `.env`**  
+   Buat file `.env` di direktori utama proyek dengan menyalin isi dari `env.example`, lalu sesuaikan nilainya sesuai kebutuhan Anda (seperti konfigurasi database MySQL).
 
-Build the application for production:
+6. **Jalankan migrasi database dengan Prisma**
 
-```bash
-# npm
-npm run build
+    ```bash
+    npx prisma db push
+    ```
 
-# pnpm
-pnpm build
+7. **Jalankan seed untuk membuat akun Super Admin**
+    
+    ```bash
+    npx prisma db seed
+    ```
 
-# yarn
-yarn build
+8. **Menjalankan aplikasi dalam mode development**
 
-# bun
-bun run build
-```
+    ```bash
+    npm run dev
+    ```
 
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+---
