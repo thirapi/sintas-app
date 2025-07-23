@@ -79,6 +79,8 @@
               color="primary"
               size="sm"
               :padded="false"
+              to="/register"
+              as="NuxtLink"
             >
               Daftar sekarang
             </UButton>
@@ -87,7 +89,6 @@
       </template>
     </UCard>
 
-    <!-- Toast notifications -->
     <UNotifications />
   </div>
 </template>
@@ -95,59 +96,61 @@
 <script setup>
 import { z } from 'zod'
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
-// Validation schema using Zod
+const router = useRouter()
+
 const schema = z.object({
   email: z.string().email('Format email tidak valid'),
   password: z.string().min(6, 'Password minimal 6 karakter')
 })
 
-// Form state
 const state = reactive({
   email: '',
   password: '',
   rememberMe: false
 })
 
-// Component state
 const loading = ref(false)
 const showPassword = ref(false)
 const toast = useToast()
 
-// Submit handler
 async function onSubmit(event) {
   loading.value = true
-  
+
   try {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    
-    // Here you would typically make an API call
-    console.log('Login data:', event.data)
-    
-    // Show success notification
+    const res = await $fetch('/api/auth/login', {
+      method: 'POST',
+      credentials: 'include',
+      body: {
+        email: event.data.email,
+        password: event.data.password
+      }
+    })
+
     toast.add({
       title: 'Login Berhasil',
       description: 'Anda berhasil masuk ke akun',
       color: 'green'
     })
-    
-    // Reset form
+
     state.email = ''
     state.password = ''
     state.rememberMe = false
-    
+
+    router.push('/dashboard') 
+
   } catch (error) {
     console.error('Login error:', error)
-    
-    // Show error notification
+
     toast.add({
       title: 'Login Gagal',
-      description: 'Email atau password salah',
+      description: error?.data?.message || 'Email atau password salah',
       color: 'red'
     })
   } finally {
     loading.value = false
   }
 }
+
 </script>
